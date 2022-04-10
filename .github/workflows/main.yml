@@ -12,8 +12,7 @@ jobs:
     environment: 
         name: 'Development'
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: who-am-i action
         uses: microsoft/powerplatform-actions/who-am-i@0.4.0
         with:

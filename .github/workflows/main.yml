@@ -1,0 +1,43 @@
+name: Export
+on:
+  workflow_dispatch:
+jobs:
+  export:
+    runs-on: windows-latest
+    environment: development
+    # The type of runner that the job will run on
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: who-am-i action
+        uses: microsoft/powerplatform-actions/who-am-i@0.4.0
+        with:
+            environment-url: ${{env.ENVIRONMENT_URL}}
+            app-id: ${{env.POWERPLATFORM_APPID}}
+            client-secret: ${{ env.POWERPLATFORM_CLIENTSECRET }}
+            tenant-id: ${{ env.TENANT_ID }}
+      - name: export-solution action
+        uses: microsoft/powerplatform-actions/export-solution@0.4.0
+        with:
+            managed: false
+            environment-url: ${{env.ENVIRONMENT_URL}}
+            app-id: ${{env.POWERPLATFORM_APPID}}
+            client-secret: ${{ env.POWERPLATFORM_CLIENTSECRET }}
+            tenant-id: ${{ env.TENANT_ID }}
+            solution-name: ${{ github.event.inputs.solution_name }}
+            solution-output-file: bin/${{ github.event.inputs.solution_name }}.zip
+      - name: unpack-solution action
+        uses: microsoft/powerplatform-actions/unpack-solution@0.4.0
+        with:
+          solution-file: out/exported/${{ github.event.inputs.solution_name }}.zip
+          solution-folder: out/solutions/${{ github.event.inputs.solution_name }}
+          solution-type: 'Unmanaged'
+          overwrite-files: true
+      - name: branch-solution, prepare it for a PullRequest
+        uses: microsoft/powerplatform-actions/branch-solution@0.4.0
+        with:
+          solution-folder: out/solutions/${{ github.event.inputs.solution_name }}
+          solution-target-folder: solutions/${{ github.event.inputs.solution_name }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-empty-commit: true
+          branch-name: ${{ github.event.inputs.solution_name }}-${{ github.run_id }}

@@ -1,6 +1,11 @@
 name: Export
 on:
   workflow_dispatch:
+    inputs:
+      solution_name:
+        description: 'Name of the Power Platform solution'
+        required: true
+        default: Training
 jobs:
   export:
     runs-on: windows-latest

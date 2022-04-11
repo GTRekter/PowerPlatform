@@ -1,0 +1,35 @@
+name: Status Check
+on:
+ push:
+   branches: [ main ]
+ pull_request:
+   branches: [ main ]
+jobs:
+  status-check:
+    runs-on: windows-latest
+    environment: 
+        name: 'Development'
+    steps:
+      - uses: actions/checkout@v3
+      - name: who-am-i action
+        uses: microsoft/powerplatform-actions/who-am-i@0.4.0
+        with:
+            environment-url: ${{ secrets.ENVIRONMENT_URL }}
+            app-id: ${{ secrets.POWERPLATFORM_APPID }}
+            client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+            tenant-id: ${{ secrets.TENANT_ID }}
+      - name: pack-solution action
+        uses: microsoft/powerplatform-actions/pack-solution@0.4.0
+        with:
+          solution-file: out/${{ secrets.SOLUTION_NAME }}.zip
+          solution-folder: ${{ secrets.SOLUTION_NAME }}.zip
+          solution-type: 'Unmanaged'
+          overwrite-files: true          
+      - name: Check solution
+        uses: ./check-solution
+        with:
+            environment-url: ${{ secrets.ENVIRONMENT_URL }}
+            app-id: ${{ secrets.POWERPLATFORM_APPID }}
+            client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+            tenant-id: ${{ secrets.TENANT_ID }}
+            path: ${{ secrets.SOLUTION_NAME }}.zip

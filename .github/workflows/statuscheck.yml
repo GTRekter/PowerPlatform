@@ -32,3 +32,5 @@ jobs:
             client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
             tenant-id: ${{ secrets.TENANT_ID }}
             path: out/${{ secrets.SOLUTION_NAME }}.zip
+            checker-logs-artifact-name: CheckSolutionLogs
+            geo: UnitedStates

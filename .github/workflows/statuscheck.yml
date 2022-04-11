@@ -22,7 +22,7 @@ jobs:
         uses: microsoft/powerplatform-actions/pack-solution@0.4.0
         with:
           solution-file: out/${{ secrets.SOLUTION_NAME }}.zip
-          solution-folder: ${{ secrets.SOLUTION_NAME }}
+          solution-folder: sln/${{ secrets.SOLUTION_NAME }}
           solution-type: 'Unmanaged'
       - name: Check solution
         uses: ./check-solution

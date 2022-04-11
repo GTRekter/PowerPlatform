@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    environment: 
+        name: 'Development'
     steps:
       - uses: actions/checkout@v3
       - name: who-am-i action
@@ -19,8 +21,8 @@ jobs:
       - name: pack-solution action
         uses: microsoft/powerplatform-actions/pack-solution@0.4.0
         with:
-          solution-file: out/${{ github.event.inputs.solution_name }}.zip
-          solution-folder: ${{ github.event.inputs.solution_name }}.zip
+          solution-file: out/${{ secrets.SOLUTION_NAME }}.zip
+          solution-folder: ${{ secrets.SOLUTION_NAME }}.zip
           solution-type: 'Unmanaged'
           overwrite-files: true          
       - name: Check solution
@@ -30,4 +32,4 @@ jobs:
             app-id: ${{ secrets.POWERPLATFORM_APPID }}
             client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
             tenant-id: ${{ secrets.TENANT_ID }}
-            path: ${{ github.event.inputs.solution_name }}.zip
+            path: ${{ secrets.SOLUTION_NAME }}.zip

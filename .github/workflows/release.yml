@@ -43,6 +43,8 @@ jobs:
   release:
     needs: [ convert-to-managed ]
     runs-on: windows-latest
+    environment: 
+      name: 'Development'
     steps:
     - uses: actions/checkout@v2
     - name: Fetch the ready to ship solution from GH artifact store

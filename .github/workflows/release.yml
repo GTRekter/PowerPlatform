@@ -28,10 +28,10 @@ jobs:
     - name: Export solution as managed
       uses: microsoft/powerplatform-actions/export-solution@v0.6.3
       with:
-          environment-url: ${{ secrets.ENVIRONMENT_URL }}
-          app-id: ${{ secrets.POWERPLATFORM_APPID }}
-          client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
-          tenant-id: ${{ secrets.TENANT_ID }}
+        environment-url: ${{ secrets.ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APPID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+        tenant-id: ${{ secrets.TENANT_ID }}
         solution-name: ${{ secrets.SOLUTION_NAME }}
         managed: true
         solution-output-file: release/${{ secrets.SOLUTION_NAME }}.zip

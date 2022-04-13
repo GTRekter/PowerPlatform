@@ -34,7 +34,7 @@ jobs:
         tenant-id: ${{ secrets.TENANT_ID }}
         solution-name: ${{ secrets.SOLUTION_NAME }}
         managed: true
-        solution-output-file: release/${{ secrets.SOLUTION_NAME }}.zip
+        solution-output-file: out/release/${{ secrets.SOLUTION_NAME }}.zip
     - name: Upload the ready to ship solution to GH artifact store
       uses: actions/upload-artifact@v2
       with:

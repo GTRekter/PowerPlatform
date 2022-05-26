@@ -10,7 +10,8 @@ jobs:
   export:
     runs-on: windows-latest
     environment: 
-        name: 'Development'
+        # This should be the Development environment but for this demo I have only the Trial
+        name: 'Build'
     steps:
       - uses: actions/checkout@v3
       - name: who-am-i action
